@@ -5,12 +5,14 @@ class SoccerLeague
   # intializing instance
   def initialize
     # set file path using current location
-    @file_path = File.expand_path(File.dirname(__FILE__)) + "/#{ARGV[0]}"
+    # @file_path = File.expand_path(File.dirname(__FILE__)) + "/#{ARGV[0]}"
     @match_list = {}
   end
 
-  def read_file
-    File.open("#{@file_path}", 'r').each do |score|
+  def read_file(file_name)
+    file_name ||= 'sample-input.txt'
+    file_path = File.expand_path(File.dirname(__FILE__)) + "/#{file_name}"
+    File.open("#{file_path}", 'r').each do |score|
       match_score = {}
       # read file add result in hash
       score.split(', ').each do |player|
@@ -19,7 +21,8 @@ class SoccerLeague
         @match_list[player_name] = 0 unless @match_list.has_key?(player_name)
       end
       calculate_score(match_score)
-    end    
+    end
+    @match_list
   end
 
   # Calculate points based on stored player name and score
@@ -34,7 +37,7 @@ class SoccerLeague
 
   # Print Output
   def display_score
-    read_file
+    read_file(ARGV[0])
     rank = 1
     sorted_list = @match_list.sort_by{ |name, score| [-score, name] }
     sorted_list.each_with_index do |player, index|            
@@ -46,4 +49,5 @@ class SoccerLeague
   end
 end
 
-SoccerLeague.new.display_score
+soccer_league = SoccerLeague.new
+soccer_league.display_score

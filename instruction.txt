@@ -1,0 +1,12 @@
+#instructions
+
+* To include following libraries run:
+  $ gem install minitest
+
+* Place input text file in the same directory having name 'sample-input.txt'.
+
+* To get expected output, run following command:
+  $ ruby soccer-league.rb
+
+* To run the test case file.
+  $ ruby soccer-league-testing.rb
